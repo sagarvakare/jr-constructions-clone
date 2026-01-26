@@ -1,0 +1,8 @@
+{
+  "targetLanguages": ["en", "hi", "kn"],
+  "sourceLanguage": "en",
+  "projectName": "sh-constructions",
+  "description": "Construction Dashboard - Multi-language support for English, Hindi, and Kannada"
+}
+
+
