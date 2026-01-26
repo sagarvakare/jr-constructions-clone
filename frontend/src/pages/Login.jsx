@@ -3,6 +3,7 @@ import { useState } from "react";
 // ADD:
 import api from "../api";
 import { Link, useNavigate } from "react-router-dom";
+import Trans from "../components/Trans";
 
 function Login({ onLogin }) {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -27,30 +28,27 @@ function Login({ onLogin }) {
     try {
       const response = await api.post("/auth/login", formData);
       
-
-      // 1. Get Token
-      const token = response.data.token || response.data;
-      
-      // 2. Find Role (Check response, then Token)
+      // Backend returns: { username, role, message }
+      // Since backend doesn't return a token, we'll create a simple session token
+      const username = response.data.username || formData.username;
       let role = response.data.role;
       
-      if (!role && token) {
-        const decoded = parseJwt(token);
-        role = decoded?.role || decoded?.roles; 
-      }
-
-      // 3. Fallback if role is missing (Assume User)
+      // Fallback if role is missing (Assume User)
       if (!role) {
          role = formData.username.toLowerCase().includes('admin') ? 'ADMIN' : 'USER';
       }
 
-      // 4. Normalize Role (Remove "ROLE_" prefix and uppercase)
+      // Normalize Role (Remove "ROLE_" prefix and uppercase)
       const finalRole = role.toString().replace(/^ROLE_/, '').toUpperCase();
 
-      console.log("Login Success:", { username: formData.username, role: finalRole });
+      // Generate a simple session token (base64 encoded username:timestamp)
+      // In production, backend should return a proper JWT token
+      const sessionToken = btoa(`${username}:${Date.now()}`);
 
-      // 5. Success
-      onLogin(formData.username, token, finalRole);
+      console.log("Login Success:", { username, role: finalRole });
+
+      // Success - pass the session token
+      onLogin(username, sessionToken, finalRole);
 
     } catch (err) {
       console.error("Login Error:", err);
@@ -65,13 +63,13 @@ function Login({ onLogin }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 pt-20">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border-t-4 border-jr-blue">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Secure Login</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6"><Trans id="login.title">Secure Login</Trans></h2>
         
         {error && <div className="bg-red-100 text-red-700 p-3 rounded mb-4 text-sm font-bold text-center">{error}</div>}
         
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1"><Trans id="login.username">Username</Trans></label>
             <input 
               name="username" 
               onChange={e => setFormData({...formData, username: e.target.value})} 
@@ -80,7 +78,7 @@ function Login({ onLogin }) {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1"><Trans id="login.password">Password</Trans></label>
             <input 
               name="password" 
               type="password" 
@@ -91,13 +89,13 @@ function Login({ onLogin }) {
           </div>
           
           <button disabled={isLoading} className="w-full bg-jr-blue text-white py-3 rounded-lg font-bold hover:bg-blue-800 transition transform active:scale-95">
-            {isLoading ? "Verifying..." : "Login to Dashboard"}
+            {isLoading ? <Trans id="login.verifying">Verifying...</Trans> : <Trans id="login.button">Login to Dashboard</Trans>}
           </button>
         </form>
         
         <div className="mt-6 text-center border-t pt-4">
-          <p className="text-sm text-gray-500">Need an account?</p>
-          <Link to="/register" className="text-jr-orange font-bold hover:underline">Register New User</Link>
+          <p className="text-sm text-gray-500"><Trans id="login.need_account">Need an account?</Trans></p>
+          <Link to="/register" className="text-jr-orange font-bold hover:underline"><Trans id="login.register">Register New User</Trans></Link>
         </div>
       </div>
     </div>

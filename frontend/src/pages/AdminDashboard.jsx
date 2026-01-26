@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "../api"; // ✅ Use the centralized API helper
 import { useNavigate } from "react-router-dom";
 import { FaTrash, FaPlus, FaSignOutAlt, FaHammer } from "react-icons/fa";
+import Trans from "../components/Trans";
 
 const AdminDashboard = ({ onLogout }) => {
   const [services, setServices] = useState([]);
@@ -73,17 +74,17 @@ const AdminDashboard = ({ onLogout }) => {
       {/* HEADER */}
       <div className="bg-gray-900 text-white p-6 flex justify-between items-center shadow-md">
         <h1 className="text-2xl font-bold flex items-center gap-3">
-          <FaHammer className="text-orange-500" /> Admin Dashboard
+          <FaHammer className="text-orange-500" /> <Trans id="admin.dashboard.title">Admin Dashboard</Trans>
         </h1>
         <div className="flex gap-4">
             <button onClick={() => navigate("/")} className="text-gray-300 hover:text-white transition">
-                Go to Home
+                <Trans id="admin.go_home">Go to Home</Trans>
             </button>
             <button 
             onClick={onLogout} 
             className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded flex items-center gap-2 transition"
             >
-            <FaSignOutAlt /> Logout
+            <FaSignOutAlt /> <Trans id="admin.logout">Logout</Trans>
             </button>
         </div>
       </div>
@@ -93,14 +94,14 @@ const AdminDashboard = ({ onLogout }) => {
         {/* LEFT: ADD SERVICE FORM */}
         <div className="bg-white p-6 rounded-xl shadow-lg h-fit">
           <h2 className="text-xl font-bold mb-6 text-gray-800 flex items-center gap-2">
-            <FaPlus className="text-orange-500" /> Add New Service
+            <FaPlus className="text-orange-500" /> <Trans id="admin.add_service">Add New Service</Trans>
           </h2>
           
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
 
           <form onSubmit={handleAddService} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Service Title</label>
+              <label className="block text-sm font-medium text-gray-700"><Trans id="admin.service_title">Service Title</Trans></label>
               <input
                 type="text"
                 placeholder="e.g., House Renovation"
@@ -112,7 +113,7 @@ const AdminDashboard = ({ onLogout }) => {
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700">Description</label>
+              <label className="block text-sm font-medium text-gray-700"><Trans id="admin.description">Description</Trans></label>
               <textarea
                 placeholder="Details about the service..."
                 value={newService.description}
@@ -126,24 +127,24 @@ const AdminDashboard = ({ onLogout }) => {
               disabled={loading}
               className={`w-full py-3 rounded-lg font-bold text-white transition ${loading ? "bg-gray-400" : "bg-blue-900 hover:bg-blue-800"}`}
             >
-              {loading ? "Adding..." : "Add Service"}
+              {loading ? <Trans id="admin.adding">Adding...</Trans> : <Trans id="admin.add_service_button">Add Service</Trans>}
             </button>
           </form>
         </div>
 
         {/* RIGHT: LIST OF SERVICES */}
         <div className="lg:col-span-2 space-y-6">
-          <h2 className="text-xl font-bold text-gray-800">Existing Services</h2>
+          <h2 className="text-xl font-bold text-gray-800"><Trans id="admin.existing_services">Existing Services</Trans></h2>
           
           {services.length === 0 ? (
-            <p className="text-gray-500 italic">No services found. Add one on the left!</p>
+            <p className="text-gray-500 italic"><Trans id="admin.no_services">No services found. Add one on the left!</Trans></p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {services.map((service) => (
                 <div key={service.id} className="bg-white p-5 rounded-lg shadow border-l-4 border-orange-500 flex justify-between items-start">
                   <div>
-                    <h3 className="font-bold text-lg text-gray-800">{service.title}</h3>
-                    <p className="text-gray-600 text-sm mt-1">{service.description}</p>
+                    <h3 className="font-bold text-lg text-gray-800"><Trans id={`service.title.${service.id}`}>{service.title}</Trans></h3>
+                    <p className="text-gray-600 text-sm mt-1"><Trans id={`service.description.${service.id}`}>{service.description}</Trans></p>
                   </div>
                   <button 
                     onClick={() => handleDelete(service.id)}

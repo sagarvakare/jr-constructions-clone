@@ -3,7 +3,6 @@ import axios from 'axios';
 // This automatically chooses the right URL:
 // - If running on Laptop: uses https://jr-constructions-clone.onrender.com
 // - If running on Cloud: uses the real Cloud URL
-import axios from 'axios';
 
 const api = axios.create({
     // REPLACE THIS WITH YOUR NEW 'SH' URL

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaBars, FaTimes, FaHardHat, FaUserCircle } from 'react-icons/fa';
+import Trans from './Trans';
 
 export default function Navbar({ user, onLogout }) {
   const [scrolled, setScrolled] = useState(false);
@@ -60,7 +61,7 @@ export default function Navbar({ user, onLogout }) {
         <div className="hidden md:flex items-center gap-8 font-medium text-gray-700">
           {navItems.map((item) => (
             <button key={item.name} onClick={() => scrollToSection(item.id)} className="hover:text-jr-orange transition-colors font-semibold">
-              {item.name}
+              <Trans id={`nav.${item.name.toLowerCase()}`}>{item.name}</Trans>
             </button>
           ))}
           
@@ -70,12 +71,12 @@ export default function Navbar({ user, onLogout }) {
                 <FaUserCircle /> {user.name}
               </span>
               <button onClick={onLogout} className="px-5 py-2 bg-red-600 text-white rounded-full font-bold hover:bg-red-700 transition shadow-md">
-                Logout
+                <Trans id="nav.logout">Logout</Trans>
               </button>
             </div>
           ) : (
             <Link to="/login" className="px-5 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-full font-bold hover:scale-105 transition shadow-md">
-              Login
+              <Trans id="nav.login">Login</Trans>
             </Link>
           )}
         </div>
@@ -91,14 +92,14 @@ export default function Navbar({ user, onLogout }) {
         <div className="md:hidden bg-white border-t p-6 flex flex-col gap-6 shadow-2xl absolute w-full left-0">
           {navItems.map((item) => (
             <button key={item.name} onClick={() => scrollToSection(item.id)} className="text-left text-lg font-bold text-gray-800 hover:text-jr-orange">
-              {item.name}
+              <Trans id={`nav.${item.name.toLowerCase()}`}>{item.name}</Trans>
             </button>
           ))}
           <div className="border-t pt-4 mt-2">
             {user ? (
-               <button onClick={onLogout} className="w-full text-center py-3 bg-red-500 text-white rounded-lg font-bold">Logout ({user.name})</button>
+               <button onClick={onLogout} className="w-full text-center py-3 bg-red-500 text-white rounded-lg font-bold"><Trans id="nav.logout">Logout</Trans> ({user.name})</button>
             ) : (
-               <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full text-center py-3 bg-jr-orange text-white rounded-lg font-bold">Login</Link>
+               <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full text-center py-3 bg-jr-orange text-white rounded-lg font-bold"><Trans id="nav.login">Login</Trans></Link>
             )}
           </div>
         </div>

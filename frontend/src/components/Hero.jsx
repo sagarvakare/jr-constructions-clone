@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaCheckCircle } from 'react-icons/fa';
+import Trans from './Trans';
 
 export default function Hero() {
   return (
@@ -20,19 +21,19 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
         >
           <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
-            Building Dreams <br />
+            <Trans id="hero.title.line1">Building Dreams</Trans> <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">
-              Crafting Reality
+              <Trans id="hero.title.line2">Crafting Reality</Trans>
             </span>
           </h1>
           <p className="mt-6 text-lg text-gray-600 leading-relaxed">
-            For over 10 years, <span className="font-bold text-orange-600">S H  Constructions</span> has been at the forefront of construction excellence. We create legacies.
+            <Trans id="hero.description">For over 10 years, <span className="font-bold text-orange-600">S H  Constructions</span> has been at the forefront of construction excellence. We create legacies.</Trans>
           </p>
           
           <div className="mt-8 space-y-3">
             {["Licensed & Fully Insured", "LEED Certified Green Building", "24/7 Customer Support"].map((item, i) => (
               <div key={i} className="flex items-center gap-3 text-gray-700 font-medium">
-                <FaCheckCircle className="text-orange-500" /> {item}
+                <FaCheckCircle className="text-orange-500" /> <Trans id={`hero.feature.${i}`}>{item}</Trans>
               </div>
             ))}
           </div>
