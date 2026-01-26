@@ -4,7 +4,7 @@ import axios from 'axios';
 const api = axios.create({
     // Go to Render Dashboard -> Backend -> Copy the URL at the top left
     // It will look like: https://jr-constructions-clone.onrender.com
-    baseURL: 'https://jr-constructions-clone.onrender.com', 
+    baseURL: 'https://sh-constructions-backend.onrender.com', 
     headers: { 'Content-Type': 'application/json' }
 });
 

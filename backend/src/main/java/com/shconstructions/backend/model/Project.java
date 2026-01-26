@@ -1,7 +1,6 @@
 package com.shconstructions.backend.model;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
 @Table(name = "projects")
