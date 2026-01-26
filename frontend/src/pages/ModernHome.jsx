@@ -9,6 +9,7 @@ import Team from '../components/Team';
 import Testimonials from '../components/Testimonials';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer'; // ✅ ADDED THIS IMPORT
+import Trans from '../components/Trans';
 
 // --- MOCK DATA ---
 const initialServices = [
@@ -47,7 +48,7 @@ export default function ModernHome() {
         onClick={() => setIsAdminMode(!isAdminMode)}
         className={`fixed bottom-5 right-5 z-50 px-6 py-3 rounded-full shadow-2xl font-bold transition-all ${isAdminMode ? 'bg-red-600 text-white' : 'bg-gray-800 text-white'}`}
       >
-        {isAdminMode ? "Exit Admin Mode" : "Enable Admin Mode"}
+        {isAdminMode ? <Trans id="home.exit_admin">Exit Admin Mode</Trans> : <Trans id="home.enable_admin">Enable Admin Mode</Trans>}
       </button>
 
       {/* --- SECTIONS WITH IDs FOR NAVIGATION --- */}

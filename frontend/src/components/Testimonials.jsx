@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaQuoteLeft, FaStar, FaBuilding } from 'react-icons/fa';
+import Trans from './Trans';
 
 export default function Testimonials({ testimonials }) {
   return (
@@ -9,10 +10,10 @@ export default function Testimonials({ testimonials }) {
         {/* HEADER */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-extrabold mb-4">
-            What Our <span className="text-orange-500">Clients Say</span>
+            What Our <span className="text-orange-500"><Trans id="testimonials.title">Clients Say</Trans></span>
           </h2>
           <p className="text-blue-100 max-w-2xl mx-auto text-lg">
-            Don't just take our word for it. Here's what our satisfied clients have to say about working with JR Constructions & Solutions.
+            <Trans id="testimonials.description">Don't just take our word for it. Here's what our satisfied clients have to say about working with JR Constructions & Solutions.</Trans>
           </p>
         </div>
 
@@ -36,7 +37,7 @@ export default function Testimonials({ testimonials }) {
 
               {/* QUOTE TEXT */}
               <p className="text-gray-600 italic mb-8 leading-relaxed text-lg">
-                "{item.text}"
+                "<Trans id={`testimonial.text.${item.id}`}>{item.text}</Trans>"
               </p>
 
               {/* CLIENT INFO */}
@@ -48,9 +49,9 @@ export default function Testimonials({ testimonials }) {
                 </div>
                 
                 <div>
-                  <h4 className="font-bold text-gray-900 text-base">{item.name}</h4>
+                  <h4 className="font-bold text-gray-900 text-base"><Trans id={`testimonial.name.${item.id}`}>{item.name}</Trans></h4>
                   <p className="text-xs text-gray-500 uppercase font-semibold tracking-wide">
-                    {item.role}
+                    <Trans id={`testimonial.role.${item.id}`}>{item.role}</Trans>
                   </p>
                 </div>
               </div>

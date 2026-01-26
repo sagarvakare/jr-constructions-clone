@@ -1,6 +1,7 @@
 import { useState } from "react";
 import api from "../api"; 
 import { Link, useNavigate } from "react-router-dom";
+import Trans from "../components/Trans";
 
 function Register() {
   // Default role is USER
@@ -59,11 +60,11 @@ function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 pt-20">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border-t-4 border-orange-500">
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Create Account</h2>
+        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800"><Trans id="register.title">Create Account</Trans></h2>
         
         <form onSubmit={handleRegister} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1"><Trans id="register.username">Username</Trans></label>
             <input 
                 type="text" 
                 placeholder="Enter username" 
@@ -74,7 +75,7 @@ function Register() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1"><Trans id="register.password">Password</Trans></label>
             <input 
                 type="password" 
                 placeholder="Enter password" 
@@ -85,14 +86,14 @@ function Register() {
           </div>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Select Role</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1"><Trans id="register.select_role">Select Role</Trans></label>
             <select 
               onChange={e => setFormData({...formData, role: e.target.value})} 
               className="w-full p-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-orange-500 outline-none"
               value={formData.role}
             >
-              <option value="USER">User (Standard)</option>
-              <option value="ADMIN">Admin (Manager)</option>
+              <option value="USER"><Trans id="register.role.user">User (Standard)</Trans></option>
+              <option value="ADMIN"><Trans id="register.role.admin">Admin (Manager)</Trans></option>
             </select>
           </div>
 
@@ -100,12 +101,12 @@ function Register() {
             disabled={loading}
             className={`w-full py-3 rounded-lg font-bold text-white transition transform active:scale-95 ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-800'}`}
           >
-            {loading ? "Registering..." : "Register Now"}
+            {loading ? <Trans id="register.registering">Registering...</Trans> : <Trans id="register.button">Register Now</Trans>}
           </button>
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">
-           Already have an account? <Link to="/login" className="text-orange-600 font-bold hover:underline">Login here</Link>
+           <Trans id="register.have_account">Already have an account?</Trans> <Link to="/login" className="text-orange-600 font-bold hover:underline"><Trans id="register.login_here">Login here</Trans></Link>
         </p>
       </div>
     </div>
